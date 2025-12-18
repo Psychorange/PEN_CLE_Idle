@@ -4,7 +4,7 @@ using UnityEngine;
 public class MarketManager : MonoBehaviour
 {
     public GoldManager goldManager;
-    
+
     public TextMeshProUGUI investmentText;
     public int investment;
     public int betterInvestment;
@@ -31,8 +31,8 @@ public class MarketManager : MonoBehaviour
     {
         if (investmentIsActive == false)
         {
-        investment -= betterInvestment;
-        investmentText.text = investment.ToString("00000");
+            investment -= betterInvestment;
+            investmentText.text = investment.ToString("00000");
         }
     }
 
@@ -40,8 +40,8 @@ public class MarketManager : MonoBehaviour
     {
         if (investmentIsActive == false)
         {
-        investment += betterInvestment;
-        investmentText.text = investment.ToString("00000");
+            investment += betterInvestment;
+            investmentText.text = investment.ToString("00000");
         }
     }
 
@@ -85,15 +85,21 @@ public class MarketManager : MonoBehaviour
             AVText.text = actionValue.ToString("0000000");
             redArrow.SetActive(false);
             greenArrow.SetActive(false);
-            investmentIsActive = false;     
+            investmentIsActive = false;
         }
     }
 
     public void Update()
     {
+        if (investment < 0)
+        {
+            investment = 0;
+            investmentText.text = investment.ToString("00000");
+        }
+
         if (actionValue != 0)
         {
-            if(everyOneSecTimer >= 1)
+            if (everyOneSecTimer >= 1)
             {
                 everyOneSecTimer = 0;
                 randomNumber = Random.Range(1, 101);
@@ -104,7 +110,8 @@ public class MarketManager : MonoBehaviour
                     actionValueInterest -= 1;
                     redArrow.SetActive(false);
                     greenArrow.SetActive(true);
-                } else
+                }
+                else
                 {
                     actionValue -= randomNumber * actionValue / 100;
                     actionValueInterest += 2;
@@ -117,15 +124,17 @@ public class MarketManager : MonoBehaviour
                 }
                 if (actionValue > investment * 300)
                 {
-                    actionValueInterest += 3;
+                    actionValueInterest += 2;
                 }
                 AVText.text = actionValue.ToString("0000000");
 
-            } else
+            }
+            else
             {
                 everyOneSecTimer += Time.deltaTime;
             }
-        } else
+        }
+        else
         {
             redArrow.SetActive(false);
             investmentIsActive = false;
@@ -133,3 +142,4 @@ public class MarketManager : MonoBehaviour
         }
     }
 }
+

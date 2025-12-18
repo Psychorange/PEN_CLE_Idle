@@ -1,0 +1,10 @@
+
+L'objectif est tout simple, faire un maximum de profit pour montrer au monde le véritable buisnessman en herbe que vous êtes.
+
+Vous pouvez investir (augmenter votre pouvoir), prendre des actionnaires (argent qui augmente au cours du temps), achetez des oeufs (un cliqueur dans un cliqueur !!! :D pour obtenir des bonus) 
+mais surtout : Investir en bourse et espérer gagner plus que votre investissment initial.
+
+Je n'arrive pas encore trop bien à utiliser les tableaux, donc mon système de pouvoirs aléatoires est peu optimisé en terme de code mais a le mérite de fonctionner.
+Je pense pour la suite rajouter un système de curseur qui clique tout seul et qu'on peut acheter et placer là où on veut.
+Il faudrait que je rajoute un peu de feedback audio, je ne sais pas si je rajoute un fond ou modifie les carrés, j'aime ce côté sobre et artistiquement ininteressent ("on est là que pour faire du buisness, le reste on s'en fou")
+Il faudrait aussi idéalement que je fasse un système pour raccourcir les nombres à rallonge et les rendres plus clairs.
