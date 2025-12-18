@@ -22,24 +22,28 @@ public class GoldManager : MonoBehaviour
     public TextMeshProUGUI ALevelText;
     public bool CPSisActive;
     public float CPScoldown;
-    public float count;
+    public float countTime;
 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        goldText.text = goldAmount.ToString("00000");
+        goldText.text = goldAmount.ToString("0000000");
 
-        PText.text = power.ToString("00000");
-        PCText.text = powerCost.ToString("00000");
+        PText.text = power.ToString("0000000");
+        PCText.text = powerCost.ToString("0000000");
         PLevelText.text = powerLevel.ToString("000");
+
+        AText.text = action.ToString("0000000");
+        ACText.text = actionCost.ToString("0000000");
+        ALevelText.text = actionLevel.ToString("000");
     }
 
     public void ChangeGold()
     {
         goldAmount += power;
-        goldText.text = goldAmount.ToString("00000");
+        goldText.text = goldAmount.ToString("0000000");
     }
 
     public void ChangePower()
@@ -48,13 +52,13 @@ public class GoldManager : MonoBehaviour
         {
             goldAmount -= powerCost;
             powerLevel += 1;
-            goldText.text = goldAmount.ToString("00000");
+            goldText.text = goldAmount.ToString("0000000");
             PLevelText.text = powerLevel.ToString("000");
 
             power *= 2;
-            powerCost *= 3;
-            PText.text = power.ToString("00000");
-            PCText.text = powerCost.ToString("00000");
+            powerCost *= 3f;
+            PText.text = power.ToString("0000000");
+            PCText.text = powerCost.ToString("0000000");
         }
     }
 
@@ -62,7 +66,23 @@ public class GoldManager : MonoBehaviour
     {
         if (goldAmount >= actionCost)
         {
+            goldAmount -= actionCost;
             CPSisActive = true;
+            actionLevel += 1;
+            goldText.text = goldAmount.ToString("0000000");
+            ALevelText.text = actionLevel.ToString("000");
+
+            if (action != 0f)
+            {
+                action = Mathf.RoundToInt(action * 2.6f);
+            } else
+            {
+                action = 2f;
+            }
+            actionCost = Mathf.RoundToInt(actionCost * 2.6f);
+            AText.text = action.ToString("0000000");
+            ACText.text = actionCost.ToString("0000000");
+
         }
     }
 
@@ -71,13 +91,14 @@ public class GoldManager : MonoBehaviour
     {
         if(CPSisActive == true)
         {
-            if(count <= CPScoldown)
+            if(countTime <= CPScoldown)
             {
-                count += Time.deltaTime;
+                countTime += Time.deltaTime;
             } else
             {
-                count = 0;
+                countTime = 0;
                 goldAmount += action;
+                goldText.text = goldAmount.ToString("0000000");
             }
         }
     }
