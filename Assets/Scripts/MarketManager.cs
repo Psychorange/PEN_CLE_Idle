@@ -20,6 +20,9 @@ public class MarketManager : MonoBehaviour
     public GameObject greenArrow;
     public bool investmentIsActive;
 
+    public TextMeshProUGUI profText;
+    public TextMeshProUGUI defiText;
+
     public void Start()
     {
         investmentText.text = investment.ToString("00000");
@@ -47,7 +50,10 @@ public class MarketManager : MonoBehaviour
 
     public void IncreaseInvestment()
     {
-        betterInvestment = investment;
+        if (investment > 0)
+        {
+            betterInvestment = investment;
+        }
     }
 
     public void ResetInvestment()
@@ -80,6 +86,7 @@ public class MarketManager : MonoBehaviour
         {
             goldManager.goldAmount += actionValue;
             actionValue = 0;
+            everyOneSecTimer = 0;
             actionValueInterest = defaultActionValueInterest;
             goldManager.goldText.text = goldManager.goldAmount.ToString("0000000");
             AVText.text = actionValue.ToString("0000000");
@@ -91,18 +98,12 @@ public class MarketManager : MonoBehaviour
 
     public void Update()
     {
-        if (investment < 0)
-        {
-            investment = 0;
-            investmentText.text = investment.ToString("00000");
-        }
-
         if (actionValue != 0)
         {
-            if (everyOneSecTimer >= 1)
+            if (everyOneSecTimer >= 2)
             {
                 everyOneSecTimer = 0;
-                randomNumber = Random.Range(1, 101);
+                randomNumber = Random.Range(10, 101);
 
                 if (randomNumber >= actionValueInterest)
                 {
@@ -139,6 +140,23 @@ public class MarketManager : MonoBehaviour
             redArrow.SetActive(false);
             investmentIsActive = false;
             actionValueInterest = defaultActionValueInterest;
+        }
+
+        if (investment < 0)
+        {
+            investment = 0;
+            investmentText.text = investment.ToString("00000");
+        }
+
+        if(investmentIsActive == true)
+        {
+        profText.text = (Random.Range(97,103) - actionValueInterest).ToString();
+        defiText.text = (Random.Range(-3, 4) + actionValueInterest).ToString();
+        }
+        else
+        {
+            profText.text = ("0");
+            defiText.text = ("0");
         }
     }
 }
